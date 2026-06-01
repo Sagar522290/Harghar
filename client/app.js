@@ -1540,6 +1540,12 @@ function createRipple(button, event) {
   ripple.addEventListener("animationend", () => ripple.remove());
 }
 
+function updateScrollProgress() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  document.documentElement.style.setProperty("--scroll-progress", `${Math.min(progress, 100)}%`);
+}
+
 function closeFloating() {
   document.querySelector("#notificationPanel").classList.remove("open");
   document.querySelector("#profilePanel").classList.remove("open");
@@ -1657,5 +1663,8 @@ document.querySelector("#commandModal").addEventListener("click", (event) => {
   if (event.target.id === "commandModal") closeCommand();
 });
 
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
+window.addEventListener("resize", updateScrollProgress);
 document.querySelector("#notificationList").innerHTML = notifications.map((item) => `<div class="mini-row"><span class="dot blue"></span><strong>${item}</strong><small>Just now</small></div>`).join("");
 setView("dashboard");
+updateScrollProgress();
