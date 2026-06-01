@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HarGhar AI Commerce OS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="mobile-scrim" id="mobileScrim"></div>
+    <div class="app-shell" id="appShell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand-row">
+          <div class="brand">
+            <div class="brand-mark">H</div>
+            <div class="brand-copy">
+              <strong>HarGhar</strong>
+              <span>AI Commerce OS</span>
+            </div>
+          </div>
+          <button class="icon-button sidebar-toggle" id="collapseSidebar" title="Collapse sidebar">SB</button>
+        </div>
+
+        <button class="command-trigger" id="openCommand">
+          <span>Ctrl K</span>
+          <strong>Command palette</strong>
+        </button>
+
+        <nav class="nav-list" aria-label="Main navigation" id="navList">
+          <button class="nav-item active" data-view="dashboard" title="Dashboard"><span>DB</span><b>Dashboard</b></button>
+          <button class="nav-item" data-view="products" title="Products"><span>PR</span><b>Products</b></button>
+          <button class="nav-item" data-view="categories" title="Categories"><span>CA</span><b>Categories</b></button>
+          <button class="nav-item" data-view="inventory" title="Inventory"><span>IV</span><b>Inventory</b></button>
+          <button class="nav-item" data-view="orders" title="Orders"><span>OR</span><b>Orders</b></button>
+          <button class="nav-item" data-view="customers" title="Customers"><span>CU</span><b>Customers</b></button>
+          <button class="nav-item" data-view="customerExperience" title="Customer Experience Preview"><span>XP</span><b>Customer App</b></button>
+          <button class="nav-item" data-view="analytics" title="Analytics"><span>AN</span><b>Analytics</b></button>
+          <button class="nav-item" data-view="marketing" title="Marketing"><span>MK</span><b>Marketing</b></button>
+          <button class="nav-item" data-view="coupons" title="Coupons"><span>CP</span><b>Coupons</b></button>
+          <button class="nav-item" data-view="delivery" title="Delivery"><span>DL</span><b>Delivery</b></button>
+          <button class="nav-item" data-view="marketplace" title="Marketplace"><span>MP</span><b>Marketplace</b></button>
+          <button class="nav-item" data-view="aiCenter" title="AI Center"><span>AI</span><b>AI Center</b></button>
+          <button class="nav-item" data-view="security" title="Security"><span>SC</span><b>Security</b></button>
+          <button class="nav-item" data-view="settings" title="Settings"><span>SE</span><b>Settings</b></button>
+        </nav>
+
+        <div class="ai-brief">
+          <span class="eyebrow">AI operator</span>
+          <h3>42 actions queued</h3>
+          <p>Pricing, stock, campaigns, and support drafts are ready for approval.</p>
+          <button class="ghost-button" data-view="aiCenter">Review Queue</button>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <button class="icon-button mobile-menu" id="mobileMenu" title="Open menu">MN</button>
+          <div class="title-block">
+            <span class="eyebrow" id="viewEyebrow">Premium prototype</span>
+            <h1 id="viewTitle">HarGhar AI Commerce OS</h1>
+          </div>
+          <div class="topbar-actions">
+            <label class="search">
+              <span>SR</span>
+              <input id="globalSearch" type="search" placeholder="Search orders, SKUs, campaigns" />
+            </label>
+            <button class="icon-button" id="notificationButton" title="Notifications">NT</button>
+            <button class="profile-button" id="profileButton" title="User profile">
+              <span>SK</span>
+              <b>Sagar</b>
+            </button>
+          </div>
+        </header>
+
+        <section class="dropdown notification-panel" id="notificationPanel">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">Notification center</span>
+              <h3>Live commerce alerts</h3>
+            </div>
+            <button class="ghost-button compact" id="markRead">Mark read</button>
+          </div>
+          <div class="mini-list" id="notificationList"></div>
+        </section>
+
+        <section class="dropdown profile-panel" id="profilePanel">
+          <div class="profile-head">
+            <span>SK</span>
+            <div>
+              <strong>Sagar Kumar</strong>
+              <small>Founder workspace</small>
+            </div>
+          </div>
+          <button data-view="settings">Workspace Settings</button>
+          <button data-view="analytics">Billing Preview</button>
+          <button data-view="customers">Team Access</button>
+        </section>
+
+        <section class="view-stage" id="viewStage"></section>
+
+        <footer class="app-footer">
+          <div class="footer-brand">
+            <div class="brand-mark">H</div>
+            <div>
+              <strong>HarGhar AI Commerce OS</strong>
+              <p>Static investor demo for ecommerce operations, AI automation, and customer experience previews.</p>
+            </div>
+          </div>
+          <div class="footer-links">
+            <button data-view="analytics">Analytics</button>
+            <button data-view="marketplace">Marketplace</button>
+            <button data-view="security">Trust Center</button>
+            <button data-view="settings">Settings</button>
+          </div>
+          <div class="footer-meta">
+            <span>Demo build 1.0</span>
+            <span>No backend or APIs</span>
+            <span>Static data only</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <button class="ai-orb" id="aiOrb" title="Open AI assistant">
+      <span>AI</span>
+    </button>
+
+    <section class="assistant-panel" id="assistantPanel">
+      <div class="panel-header">
+        <div>
+          <span class="eyebrow">HarGhar copilot</span>
+          <h3>AI Assistant</h3>
+        </div>
+        <button class="icon-button" id="closeAssistant">CL</button>
+      </div>
+      <div class="assistant-chat">
+        <p><strong>AI:</strong> I found 3 margin opportunities and 2 stock risks for today's demo.</p>
+        <p><strong>You:</strong> Prepare a CEO summary.</p>
+        <p><strong>AI:</strong> Ready. GMV is up 28.4%, Mumbai bundles are leading, and support automation saved 312 agent hours.</p>
+      </div>
+      <div class="assistant-actions">
+        <button class="secondary-button" data-view="analytics">Open Analytics</button>
+        <button class="primary-button" data-view="aiCenter">Approve Actions</button>
+      </div>
+    </section>
+
+    <section class="command-modal" id="commandModal" aria-hidden="true">
+      <div class="command-card">
+        <label class="command-search">
+          <span>Ctrl K</span>
+          <input id="commandInput" type="search" placeholder="Jump to a page or action" />
+        </label>
+        <div class="command-results" id="commandResults"></div>
+      </div>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
