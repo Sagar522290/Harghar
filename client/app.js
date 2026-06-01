@@ -1,16 +1,16 @@
 const views = {
   dashboard: {
-    eyebrow: "Premium prototype",
-    title: "HarGhar AI Commerce OS",
+    eyebrow: "Executive workspace",
+    title: "HarGhar Commerce Command Center",
     html: `
       <section class="hero-band">
         <div class="hero-copy">
-          <span class="status-pill">Live demo workspace</span>
-          <h2>One operating layer for every neighborhood commerce brand.</h2>
-          <p>Orchestrate storefronts, inventory, campaigns, creator drops, WhatsApp support, and AI merchandising from a single executive-grade cockpit.</p>
+          <span class="status-pill">Live operating cockpit</span>
+          <h2>Run every commerce motion from one calm, decisive workspace.</h2>
+          <p>Coordinate storefronts, inventory, campaigns, vendor operations, support, and AI recommendations without losing the executive picture.</p>
           <div class="hero-actions">
-            <button class="primary-button" data-view="analytics">Generate Growth Plan</button>
-            <button class="secondary-button" data-view="marketplace">View Store Network</button>
+            <button class="primary-button" data-view="analytics">Build Growth Plan</button>
+            <button class="secondary-button" data-view="marketplace">Open Vendor Network</button>
           </div>
         </div>
         <div class="hero-visual">
@@ -33,8 +33,8 @@ const views = {
           <p class="page-copy">Revenue velocity, repeat orders, and fulfillment SLA are all above target.</p>
         </article>
         <article class="panel">
-          <div class="panel-header"><div><span class="eyebrow">AI business summary</span><h3>Board Brief</h3></div></div>
-          <p class="page-copy">GMV is pacing 18% ahead of plan. Mumbai grocery bundles, Delhi beauty subscriptions, and Jaipur fashion drops are driving the strongest contribution margin.</p>
+          <div class="panel-header"><div><span class="eyebrow">AI business summary</span><h3>Executive Brief</h3></div></div>
+          <p class="page-copy">GMV is pacing 18% ahead of plan. Mumbai grocery bundles, Delhi beauty subscriptions, and Jaipur fashion drops are delivering the healthiest contribution margin.</p>
         </article>
         <article class="panel">
           <div class="panel-header"><div><span class="eyebrow">Live now</span><h3>Active Users</h3></div><span class="live-dot">Live</span></div>
@@ -57,14 +57,14 @@ const views = {
       </section>`
   },
   customerExperience: {
-    eyebrow: "Frontend customer app preview",
+    eyebrow: "Customer app preview",
     title: "Customer Experience Preview",
     html: `
       <section class="customer-preview-hero">
         <div>
-          <span class="status-pill">Mobile storefront prototype</span>
-          <h2>Premium shopping flows for discovery, checkout, loyalty, and AI-assisted buying.</h2>
-          <p>Preview the customer-facing app across homepage, listing, product details, cart, checkout, tracking, wishlist, and AI shopping assistant screens.</p>
+          <span class="status-pill">Mobile storefront journey</span>
+          <h2>A polished buying experience from discovery to delivery.</h2>
+          <p>Review homepage, listing, product detail, cart, checkout, tracking, wishlist, and AI shopping assistant screens in one presentation flow.</p>
           <div class="hero-actions">
             <button class="primary-button">Preview App Flow</button>
             <button class="secondary-button">Share Prototype</button>
@@ -225,7 +225,7 @@ const views = {
       </section>`
   },
   marketplace: {
-    eyebrow: "Multi vendor marketplace",
+    eyebrow: "Multi-vendor marketplace",
     title: "Marketplace",
     html: `
       <section class="page-grid">
@@ -249,12 +249,12 @@ const views = {
     html: `
       <section class="ai-command-hero">
         <div class="ai-hero-copy">
-          <span class="status-pill">Neural commerce engine online</span>
-          <h2>Autonomous intelligence for every sale, shopper, SKU, and campaign.</h2>
-          <p>Forecast demand, generate content, score customer intent, detect review themes, and launch growth actions from one AI control room.</p>
+          <span class="status-pill">AI commerce engine online</span>
+          <h2>Turn live signals into approved business actions.</h2>
+          <p>Forecast demand, generate content, score customer intent, detect review themes, and launch growth plays from one governed AI workspace.</p>
           <div class="hero-actions">
             <button class="primary-button">Run AI Scan</button>
-            <button class="secondary-button">Generate Strategy</button>
+            <button class="secondary-button">Draft Strategy</button>
           </div>
         </div>
         <div class="neural-core">
