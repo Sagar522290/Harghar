@@ -1603,6 +1603,8 @@ function closeFloating() {
   document.querySelector("#profilePanel")?.classList.remove("open");
   document.querySelector("#mobileScrim")?.classList.remove("open");
   document.querySelector("#sidebar")?.classList.remove("mobile-open");
+  document.querySelector("#assistantPanel")?.classList.remove("open");
+  closeCommand();
 }
 
 function openCommand() {
