@@ -19,7 +19,7 @@
               <span>Commerce Command Center</span>
             </div>
           </div>
-          <button class="icon-button sidebar-toggle" id="collapseSidebar" title="Collapse sidebar">‹</button>
+          <button class="icon-button sidebar-toggle" id="collapseSidebar" title="Collapse sidebar">&lsaquo;</button>
         </div>
 
         <button class="command-trigger" id="openCommand">
@@ -49,23 +49,28 @@
           <span class="eyebrow">AI operator</span>
           <h3>42 actions queued</h3>
           <p>Pricing, stock, campaigns, and support drafts are ready for approval.</p>
-          <button class="ghost-button" data-view="aiCenter">Review Queue</button>
+          <button class="ghost-button" data-view="aiCenter" data-focus="reviewQueue">Review Queue</button>
         </div>
       </aside>
 
       <main class="workspace">
         <header class="topbar">
-          <button class="icon-button mobile-menu" id="mobileMenu" title="Open menu">☰</button>
+          <button class="icon-button mobile-menu" id="mobileMenu" title="Open menu">&#9776;</button>
           <div class="title-block">
             <span class="eyebrow" id="viewEyebrow">Executive workspace</span>
             <h1 id="viewTitle">HarGhar Commerce Command Center</h1>
           </div>
           <div class="topbar-actions">
             <label class="search">
-              <span>⌕</span>
+              <span>&#8981;</span>
               <input id="globalSearch" type="search" placeholder="Search orders, SKUs, customers, campaigns" />
             </label>
-            <button class="icon-button" id="notificationButton" title="Notifications">●</button>
+            <button class="icon-button" id="notificationButton" title="Notifications">&#9679;</button>
+            <button class="theme-switch" id="themeSwitch" type="button" title="Switch theme" aria-label="Switch theme" aria-pressed="false">
+              <span class="theme-switch-track" aria-hidden="true">
+                <span class="theme-switch-thumb" id="themeSwitchThumb">&#9790;</span>
+              </span>
+            </button>
             <button class="profile-button" id="profileButton" title="User profile">
               <span>SK</span>
               <b>Sagar</b>
@@ -150,7 +155,7 @@
           <span class="eyebrow">HarGhar copilot</span>
           <h3>AI Assistant</h3>
         </div>
-        <button class="icon-button" id="closeAssistant">×</button>
+        <button class="icon-button" id="closeAssistant">&times;</button>
       </div>
       <div class="assistant-chat">
         <p><strong>AI:</strong> I found 3 margin opportunities and 2 stock risks for today's demo.</p>

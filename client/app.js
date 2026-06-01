@@ -270,6 +270,7 @@ const views = {
         ${metric("Predicted uplift", "Rs 38.6L", "next 30 days")}
         ${metric("Content generated", "6,812", "this month")}
       </section>
+      ${aiReviewQueuePanel()}
       <section class="ai-grid">
         ${aiShoppingAssistantPanel()}
         ${aiSalesForecastPanel()}
@@ -766,6 +767,30 @@ function commissionRule(category, rate, detail) {
 
 function verificationRow(name, detail, action) {
   return `<div class="mini-row"><span class="dot amber"></span><strong>${name}</strong><small>${detail}</small><span class="badge">${action}</span></div>`;
+}
+
+function aiReviewQueuePanel() {
+  return `<section class="panel review-queue-panel" id="reviewQueue">
+    <div class="panel-header">
+      <div><span class="eyebrow">Review queue</span><h3>42 AI actions ready</h3></div>
+      <button class="primary-button compact">Approve Selected</button>
+    </div>
+    <div class="review-queue-list">
+      ${reviewQueueItem("Margin opportunity", "Raise premium basmati pricing by 3% for Mumbai and Pune.", "Rs 4.8L uplift", "High")}
+      ${reviewQueueItem("Stock risk", "Transfer 1,240 Glow Serum units to Delhi WH-04 before weekend demand.", "2 days cover", "Urgent")}
+      ${reviewQueueItem("Campaign draft", "Launch VIP festive winback for dormant high-LTV customers.", "42,180 buyers", "Ready")}
+      ${reviewQueueItem("Support automation", "Publish packaging-delay response macro for affected orders.", "312 hrs saved", "Review")}
+    </div>
+  </section>`;
+}
+
+function reviewQueueItem(type, detail, impact, status) {
+  return `<div class="review-queue-item">
+    <label><input type="checkbox" checked /></label>
+    <div><strong>${type}</strong><small>${detail}</small></div>
+    <b>${impact}</b>
+    <span class="badge">${status}</span>
+  </div>`;
 }
 
 function aiShoppingAssistantPanel() {
@@ -1454,9 +1479,10 @@ function workflow(name, detail, status) {
   return `<div class="workflow"><div><strong>${name}</strong><small>${detail}</small></div><span class="badge">${status}</span><button class="secondary-button compact">Configure</button></div>`;
 }
 
-function setView(viewName) {
+function setView(viewName, focusId) {
   const view = views[viewName] || views.dashboard;
   const stage = document.querySelector("#viewStage");
+  if (!stage) return;
   document.querySelector("#viewEyebrow").textContent = view.eyebrow;
   document.querySelector("#viewTitle").textContent = view.title;
   stage.classList.add("is-loading");
@@ -1471,7 +1497,16 @@ function setView(viewName) {
     void stage.offsetWidth;
     stage.classList.add("page-enter");
     initViewInteractions(stage);
+    if (focusId) focusRenderedSection(focusId);
   }, 260);
+}
+
+function focusRenderedSection(focusId) {
+  const target = document.getElementById(focusId);
+  if (!target) return;
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  target.classList.add("focus-pulse");
+  window.setTimeout(() => target.classList.remove("focus-pulse"), 1400);
 }
 
 function showToast(message) {
@@ -1522,7 +1557,7 @@ function initViewInteractions(root) {
   root.querySelectorAll(".chart div, .sparkline span, .mini-graph span").forEach((bar, index) => {
     bar.style.animationDelay = `${index * 45}ms`;
   });
-  root.querySelectorAll(".panel, .metric-card, .product-card, .category-card, .phone-mockup, .ai-card").forEach((card, index) => {
+  root.querySelectorAll(".market-card, .neural-core").forEach((card, index) => {
     card.style.setProperty("--float-delay", `${(index % 6) * 180}ms`);
   });
 }
@@ -1546,31 +1581,56 @@ function updateScrollProgress() {
   document.documentElement.style.setProperty("--scroll-progress", `${Math.min(progress, 100)}%`);
 }
 
+function updateThemeSwitch() {
+  const isLight = document.body.classList.contains("light-theme");
+  const switchButton = document.querySelector("#themeSwitch");
+  const switchThumb = document.querySelector("#themeSwitchThumb");
+  if (!switchButton || !switchThumb) return;
+  switchThumb.textContent = isLight ? "\u2600" : "\u263E";
+  switchButton.setAttribute("aria-pressed", String(isLight));
+  switchButton.title = isLight ? "Switch to dark mode" : "Switch to light mode";
+  switchButton.setAttribute("aria-label", switchButton.title);
+}
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle("light-theme");
+  localStorage.setItem("harghar-commerce-theme", isLight ? "light" : "dark");
+  updateThemeSwitch();
+}
+
 function closeFloating() {
-  document.querySelector("#notificationPanel").classList.remove("open");
-  document.querySelector("#profilePanel").classList.remove("open");
-  document.querySelector("#mobileScrim").classList.remove("open");
-  document.querySelector("#sidebar").classList.remove("mobile-open");
+  document.querySelector("#notificationPanel")?.classList.remove("open");
+  document.querySelector("#profilePanel")?.classList.remove("open");
+  document.querySelector("#mobileScrim")?.classList.remove("open");
+  document.querySelector("#sidebar")?.classList.remove("mobile-open");
 }
 
 function openCommand() {
   const modal = document.querySelector("#commandModal");
+  const input = document.querySelector("#commandInput");
+  if (!modal || !input) return;
   modal.classList.add("open");
   modal.setAttribute("aria-hidden", "false");
-  document.querySelector("#commandInput").focus();
+  input.focus();
   renderCommands("");
 }
 
 function closeCommand() {
   const modal = document.querySelector("#commandModal");
+  if (!modal) return;
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden", "true");
 }
 
 function renderCommands(query) {
   const root = document.querySelector("#commandResults");
+  if (!root) return;
   const items = Object.entries(views).filter(([key, view]) => `${key} ${view.title}`.toLowerCase().includes(query.toLowerCase()));
   root.innerHTML = items.map(([key, view]) => `<button data-view="${key}"><span>${view.eyebrow}</span><strong>${view.title}</strong></button>`).join("");
+}
+
+function bind(selector, eventName, handler, options) {
+  document.querySelector(selector)?.addEventListener(eventName, handler, options);
 }
 
 document.addEventListener("click", (event) => {
@@ -1586,7 +1646,7 @@ document.addEventListener("click", (event) => {
 
   const viewButton = event.target.closest("[data-view]");
   if (viewButton) {
-    setView(viewButton.dataset.view);
+    setView(viewButton.dataset.view, viewButton.dataset.focus);
     closeCommand();
     showToast(`Opened ${views[viewButton.dataset.view]?.title || "demo page"}`);
     return;
@@ -1607,7 +1667,9 @@ document.addEventListener("click", (event) => {
   const productButton = event.target.closest("[data-open-product]");
   if (productButton) {
     const modal = document.querySelector("#productModal");
-    document.querySelector("#modalProductName").textContent = productButton.dataset.openProduct;
+    const modalProductName = document.querySelector("#modalProductName");
+    if (!modal || !modalProductName) return;
+    modalProductName.textContent = productButton.dataset.openProduct;
     modal.classList.add("open");
     modal.setAttribute("aria-hidden", "false");
     showToast(`Opened ${productButton.dataset.openProduct}`);
@@ -1627,24 +1689,28 @@ document.addEventListener("click", (event) => {
   }
 });
 
-document.querySelector("#collapseSidebar").addEventListener("click", () => {
-  document.querySelector("#appShell").classList.toggle("sidebar-collapsed");
+bind("#collapseSidebar", "click", () => {
+  document.querySelector("#appShell")?.classList.toggle("sidebar-collapsed");
 });
 
-document.querySelector("#mobileMenu").addEventListener("click", () => {
-  document.querySelector("#sidebar").classList.add("mobile-open");
-  document.querySelector("#mobileScrim").classList.add("open");
+bind("#mobileMenu", "click", () => {
+  document.querySelector("#sidebar")?.classList.add("mobile-open");
+  document.querySelector("#mobileScrim")?.classList.add("open");
 });
 
-document.querySelector("#mobileScrim").addEventListener("click", closeFloating);
-document.querySelector("#openCommand").addEventListener("click", openCommand);
-document.querySelector("#notificationButton").addEventListener("click", () => document.querySelector("#notificationPanel").classList.toggle("open"));
-document.querySelector("#profileButton").addEventListener("click", () => document.querySelector("#profilePanel").classList.toggle("open"));
-document.querySelector("#markRead").addEventListener("click", () => document.querySelector("#notificationList").innerHTML = `<div class="mini-row"><strong>All caught up</strong><small>No unread demo alerts</small></div>`);
-document.querySelector("#aiOrb").addEventListener("click", () => document.querySelector("#assistantPanel").classList.toggle("open"));
-document.querySelector("#closeAssistant").addEventListener("click", () => document.querySelector("#assistantPanel").classList.remove("open"));
-document.querySelector("#globalSearch").addEventListener("focus", openCommand);
-document.querySelector("#commandInput").addEventListener("input", (event) => renderCommands(event.target.value));
+bind("#mobileScrim", "click", closeFloating);
+bind("#openCommand", "click", openCommand);
+bind("#notificationButton", "click", () => document.querySelector("#notificationPanel")?.classList.toggle("open"));
+bind("#themeSwitch", "click", toggleTheme);
+bind("#profileButton", "click", () => document.querySelector("#profilePanel")?.classList.toggle("open"));
+bind("#markRead", "click", () => {
+  const notificationList = document.querySelector("#notificationList");
+  if (notificationList) notificationList.innerHTML = `<div class="mini-row"><strong>All caught up</strong><small>No unread demo alerts</small></div>`;
+});
+bind("#aiOrb", "click", () => document.querySelector("#assistantPanel")?.classList.toggle("open"));
+bind("#closeAssistant", "click", () => document.querySelector("#assistantPanel")?.classList.remove("open"));
+bind("#globalSearch", "focus", openCommand);
+bind("#commandInput", "input", (event) => renderCommands(event.target.value));
 
 document.addEventListener("keydown", (event) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
@@ -1655,16 +1721,19 @@ document.addEventListener("keydown", (event) => {
     closeCommand();
     closeFloating();
     document.querySelector("#productModal")?.classList.remove("open");
-    document.querySelector("#assistantPanel").classList.remove("open");
+    document.querySelector("#assistantPanel")?.classList.remove("open");
   }
 });
 
-document.querySelector("#commandModal").addEventListener("click", (event) => {
+bind("#commandModal", "click", (event) => {
   if (event.target.id === "commandModal") closeCommand();
 });
 
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
 window.addEventListener("resize", updateScrollProgress);
-document.querySelector("#notificationList").innerHTML = notifications.map((item) => `<div class="mini-row"><span class="dot blue"></span><strong>${item}</strong><small>Just now</small></div>`).join("");
+if (localStorage.getItem("harghar-commerce-theme") === "light") document.body.classList.add("light-theme");
+updateThemeSwitch();
+const notificationList = document.querySelector("#notificationList");
+if (notificationList) notificationList.innerHTML = notifications.map((item) => `<div class="mini-row"><span class="dot blue"></span><strong>${item}</strong><small>Just now</small></div>`).join("");
 setView("dashboard");
 updateScrollProgress();
